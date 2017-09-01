@@ -17,7 +17,6 @@ package io.microprofile.showcase.speaker.rest;
 import io.microprofile.showcase.speaker.model.Speaker;
 import io.microprofile.showcase.speaker.persistence.SpeakerDAO;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -37,7 +36,6 @@ import java.util.Set;
 /**
  * The Speaker resource
  */
-@ApplicationScoped
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/")
@@ -110,6 +108,11 @@ public class ResourceSpeaker {
     }
 
     private URI getUri(final Speaker s, final String path) {
+    	System.out.println("UriInfo is: " + uriInfo);
+    	System.out.println("  builder : " + this.uriInfo.getBaseUriBuilder());
+    	System.out.println("  path1 is: " + this.uriInfo.getBaseUriBuilder().path(ResourceSpeaker.class));
+    	System.out.println("  path2 is: " + this.uriInfo.getBaseUriBuilder().path(ResourceSpeaker.class).path(ResourceSpeaker.class, path));
+    	System.out.println("  speaker : " + s);
         return this.uriInfo.getBaseUriBuilder().path(ResourceSpeaker.class).path(ResourceSpeaker.class, path).build(s.getId());
     }
 
